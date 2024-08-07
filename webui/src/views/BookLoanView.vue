@@ -1,0 +1,3 @@
+<template>
+    Book Loans
+</template>
