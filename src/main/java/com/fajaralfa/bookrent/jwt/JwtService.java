@@ -2,11 +2,9 @@ package com.fajaralfa.bookrent.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
-import java.security.Key;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +18,8 @@ import javax.crypto.SecretKey;
 
 @Service
 public class JwtService {
-    private SecretKey secretKey = Jwts.SIG.HS256.key().build(); // random for now
+    @Value("${spring.security.jwt.secret}")
+    private String secretKey;
 
     private long jwtExpiration = 2000000;
 
@@ -83,6 +82,7 @@ public class JwtService {
     }
 
     private SecretKey getSignInKey() {
-        return secretKey;
+        byte[] keyBytes = Base64.getDecoder().decode(secretKey);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 }
