@@ -1,6 +1,6 @@
 package com.fajaralfa.bookrent.user;
 
-public record RegisterResponse(
+public record UserResponse(
         Integer id,
         String name,
         String username
