@@ -1,7 +1,6 @@
 package com.fajaralfa.bookrent.loanbook;
 
 import com.fajaralfa.bookrent.book.Book;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 import java.util.List;
