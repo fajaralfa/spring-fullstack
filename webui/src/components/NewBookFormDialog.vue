@@ -3,21 +3,16 @@ import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import { ref } from 'vue';
-import { useAxios } from '@/composables/useAxios';
+import { usePostBook } from '@/composables/usePostBook';
+
+const { input, submit, loading } = usePostBook()
+const emit = defineEmits(['stored'])
 
 const visible = ref(false)
 
-const { input, fetch, loading } = useAxios('/api/v1/books', 'post', {
-    title: '',
-    author: '',
-    description: '',
-})
-
-const emit = defineEmits(['result'])
-
-async function storeNewBook() {
-    const res = await fetch()
-    emit('result', res.data)
+const storeNewBook = async () => {
+    await submit()
+    emit('stored')
     visible.value = false
 }
 

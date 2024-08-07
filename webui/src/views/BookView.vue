@@ -1,22 +1,25 @@
 <script setup>
 import Button from 'primevue/button';
 import NewBookFormDialog from '@/components/NewBookFormDialog.vue';
-import { onBeforeMount, ref, watch } from 'vue';
-import UpdateBookFormDialog from '@/components/UpdateBookFormDialog.vue';
-import { useAxios } from '@/composables/useAxios';
+import { onBeforeMount } from 'vue';
+import { useGetBooks } from '@/composables/useGetBooks';
+import axios from 'axios';
 
-const { fetch } = useAxios('/api/v1/books')
+const { books, fetch } = useGetBooks()
 
-const books = ref([])
-onBeforeMount(async () => {
-    books.value = (await fetch()).data._embedded.books
-})
+onBeforeMount(async () => await fetch())
+
+const deleteBook = async (url) => {
+    if(!confirm('hapus data ini?')) return
+    await axios.delete(url)
+    await fetch()
+}
 
 </script>
 
 <template>
     <div class="p-5">
-        <NewBookFormDialog @result="fetch()" />
+        <NewBookFormDialog @stored="fetch()" />
     </div>
     <div>
         <table class="table table-fixed">
@@ -33,7 +36,8 @@ onBeforeMount(async () => {
                     <td>{{ book.author }}</td>
                     <td>{{ book.description }}</td>
                     <td>
-                        <Button severity="danger" @click="">X</Button>
+                        <Button severity="secondary" @click="">^</Button>
+                        <Button severity="danger" @click="deleteBook(book._links.self.href)">X</Button>
                     </td>
                 </tr>
             </tbody>
