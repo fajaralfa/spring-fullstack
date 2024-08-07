@@ -1,9 +1,11 @@
 <script setup>
 import Button from 'primevue/button';
 import NewBookFormDialog from '@/components/NewBookFormDialog.vue';
-import { onBeforeMount } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import { useGetBooks } from '@/composables/useGetBooks';
 import axios from 'axios';
+import EditBookFormDialog from '@/components/EditBookFormDialog.vue';
+import { useEditBookDialog } from '@/composables/useEditBookDialog';
 
 const { books, fetch } = useGetBooks()
 
@@ -14,6 +16,8 @@ const deleteBook = async (url) => {
     await axios.delete(url)
     await fetch()
 }
+
+const { editBookData, editBookDialog, editBookDialogVisible } = useEditBookDialog()
 
 </script>
 
@@ -36,13 +40,14 @@ const deleteBook = async (url) => {
                     <td>{{ book.author }}</td>
                     <td>{{ book.description }}</td>
                     <td>
-                        <Button severity="secondary" @click="">^</Button>
+                        <Button severity="secondary" @click="editBookDialog(book)">^</Button>
                         <Button severity="danger" @click="deleteBook(book._links.self.href)">X</Button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+    <EditBookFormDialog :data="editBookData" @updated="fetch()" v-model:visible="editBookDialogVisible" />
 </template>
 
 <style scoped>
