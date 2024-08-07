@@ -1,7 +1,6 @@
 package com.fajaralfa.bookrent.user;
 
 import com.fajaralfa.bookrent.jwt.JwtService;
-import org.apache.juli.logging.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,16 +16,6 @@ public class AuthenticationController {
     public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService) {
         this.jwtService = jwtService;
         this.authenticationService = authenticationService;
-    }
-
-    @PostMapping("/signup")
-    public ResponseEntity<RegisterResponse> signup(@RequestBody RegisterRequest request) {
-        User user = authenticationService.signup(request);
-
-        RegisterResponse response = new RegisterResponse(
-                user.getId(), user.getName(), user.getUsername()
-        );
-        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")
