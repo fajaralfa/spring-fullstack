@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/bookloans")
+@RequestMapping("/api/v1/loan-books")
 public class LoanBookController {
     private LoanBookRepository loanBookRepository;
     private LoanBookItemRepository loanBookItemRepository;

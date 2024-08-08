@@ -25,4 +25,15 @@ public class AuthenticationController {
         LoginResponse response = new LoginResponse(jwt, jwtService.getExpirationTime());
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/signup")
+    public ResponseEntity<UserResponse> signup(@RequestBody RegisterRequest request) {
+        User user = authenticationService.signup(request);
+
+        UserResponse response = new UserResponse(
+                user.getId(), user.getName(), user.getUsername()
+        );
+        return ResponseEntity.ok(response);
+    }
+
 }

@@ -1,6 +1,8 @@
 package com.fajaralfa.bookrent.loanbook;
 
 import com.fajaralfa.bookrent.book.Book;
+import com.fajaralfa.bookrent.student.Student;
+
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -12,8 +14,17 @@ public class LoanBook {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "student_id")
-    private Integer studentId;
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 
     @Column(name = "borrow_time")
     private String borrowTime;
@@ -35,9 +46,8 @@ public class LoanBook {
     public LoanBook() {
     }
 
-    public LoanBook(Integer id, Integer studentId, String borrowTime, String returnTime) {
+    public LoanBook(Integer id, String borrowTime, String returnTime) {
         this.id = id;
-        this.studentId = studentId;
         this.borrowTime = borrowTime;
         this.returnTime = returnTime;
     }
@@ -50,13 +60,13 @@ public class LoanBook {
         this.id = id;
     }
 
-    public Integer getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Integer studentId) {
-        this.studentId = studentId;
-    }
+//    public Integer getStudentId() {
+//        return studentId;
+//    }
+//
+//    public void setStudentId(Integer studentId) {
+//        this.studentId = studentId;
+//    }
 
     public String getBorrowTime() {
         return borrowTime;

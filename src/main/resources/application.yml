@@ -17,3 +17,6 @@ spring:
     init:
       mode: always
   security:
+    jwt: # secret should be from environment var
+      secret: 16e928d2031d07e3ef707b03b7e6e2d3f97c00569affecebdb3817c6954d4331
+      expiration: 4320 # minute

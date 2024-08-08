@@ -21,7 +21,8 @@ public class JwtService {
     @Value("${spring.security.jwt.secret}")
     private String secretKey;
 
-    private long jwtExpiration = 2000000;
+    @Value("${spring.security.jwt.expiration}")
+    private long jwtExpiration;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -54,7 +55,7 @@ public class JwtService {
                 .claims(extraClaims)
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + expiration))
+                .expiration(new Date(System.currentTimeMillis() + (expiration * 60000)))
                 .signWith(getSignInKey())
                 .compact();
     }

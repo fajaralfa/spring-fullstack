@@ -27,16 +27,6 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/")
-    public ResponseEntity<UserResponse> signup(@RequestBody RegisterRequest request) {
-        User user = authenticationService.signup(request);
-
-        UserResponse response = new UserResponse(
-                user.getId(), user.getName(), user.getUsername()
-        );
-        return ResponseEntity.ok(response);
-    }
-
     @DeleteMapping("/{username}")
     @Transactional
     public void delete(@PathVariable("username") String username) {
