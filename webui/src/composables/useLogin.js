@@ -14,11 +14,9 @@ export function useLogin() {
     
     async function login() {
         loading.value = true
-        setTimeout(async () => {
-            await auth.login(input.value)
-            loading.value = false
-            router.push({name: 'home'})
-        }, 1000)
+        await auth.login(input.value)
+        loading.value = false
+        router.push({name: 'home'})
     }
 
     return { input, login, loading }

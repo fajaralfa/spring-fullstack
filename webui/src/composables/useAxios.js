@@ -1,17 +1,17 @@
 import axios from "axios";
 import { ref, toRef } from "vue";
 
-export function useAxios(url, method = 'get', data = {}) {
-    const input = toRef(data)
+export function useAxios(url, method = 'get', input) {
     const loading = ref(false)
+    const data = ref()
 
-    async function fetch(fetchUrl) {
-        if (!fetchUrl) fetchUrl = url
+    async function fetch(reqUrl) {
+        if (reqUrl) url = reqUrl
         loading.value = true
-        const res = await axios.request({url, method, data: input.value})
+        const res = await axios.request({url, method, data: input?.value})
+        data.value = res.data
         loading.value = false
-        return res
     }
 
-    return { input, fetch, loading }
+    return { fetch, data, loading }
 }

@@ -10,7 +10,7 @@ const router = createRouter({
         {
           path: '',
           name: 'home',
-          redirect: '/book-loans',
+          redirect: {name: 'loan-books'},
         },
         {
           path: '/books',
@@ -23,9 +23,9 @@ const router = createRouter({
           component: () => import('@/views/StudentView.vue'),
         },
         {
-          path: '/book-loans',
-          name: 'book-loans',
-          component: () => import('@/views/BookLoanView.vue'),
+          path: '/loan-books',
+          name: 'loan-books',
+          component: () => import('@/views/LoanBookView.vue'),
         }
 
       ]

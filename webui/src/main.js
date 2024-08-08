@@ -22,7 +22,10 @@ app.use(PrimeVue, {
 
 const auth = useAuth()
 
+window.axios = axios
 axios.defaults.baseURL = 'http://localhost:8080'
-axios.defaults.headers.common.Authorization = `Bearer ${auth.token}`
+if (auth.token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${auth.token}`
+}
 
 app.mount('#app')

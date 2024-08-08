@@ -26,7 +26,7 @@ const { editBookData, editBookDialog, editBookDialogVisible } = useEditBookDialo
         <NewBookFormDialog @stored="fetch()" />
     </div>
     <div>
-        <table class="table table-fixed">
+        <table class="table table-fixed m-auto">
             <thead>
                 <tr>
                     <th>Title</th>
